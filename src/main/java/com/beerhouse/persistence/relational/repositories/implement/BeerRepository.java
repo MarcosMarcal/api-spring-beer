@@ -29,21 +29,21 @@ public class BeerRepository implements MainBeerRepository {
 
     @Override
     public List<Beer> findAll() {
-        return null;
+        return this.beerRepo.findAll();
     }
 
     @Override
     public void deleteById(Long id) {
-
+        this.beerRepo.deleteById(id);
     }
 
     @Override
     public Optional<Beer> findById(Long id) {
-        return Optional.empty();
+        return this.beerRepo.findById(id);
     }
 
     @Override
     public Page<Beer> findAllPage(Pageable pageable) {
-        return null;
+        return this.beerRepo.findAll(pageable);
     }
 }
