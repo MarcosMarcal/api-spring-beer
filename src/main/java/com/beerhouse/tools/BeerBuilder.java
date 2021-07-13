@@ -1,7 +1,14 @@
 package com.beerhouse.tools;
 
-import com.beerhouse.persistence.relational.entities.Beer;
+import com.beerhouse.model.Beer;
 
+/**
+ * Essa classe é utilizada para criação de objetos 'Beer' para facilitar testes
+ * e geração de dados fictícios.
+ *
+ * @author Marçal, Marcos
+ * @version 1.0
+ * */
 public class BeerBuilder {
 
     private Beer beer;

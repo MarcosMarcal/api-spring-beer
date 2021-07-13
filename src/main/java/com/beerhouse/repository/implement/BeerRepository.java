@@ -1,9 +1,9 @@
-package com.beerhouse.persistence.relational.repositories.implement;
+package com.beerhouse.repository.implement;
 
 
-import com.beerhouse.persistence.relational.entities.Beer;
-import com.beerhouse.persistence.relational.repositories.JpaBeerRepository;
-import com.beerhouse.persistence.relational.repositories.MainBeerRepository;
+import com.beerhouse.model.Beer;
+import com.beerhouse.repository.JpaBeerRepository;
+import com.beerhouse.repository.MainBeerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

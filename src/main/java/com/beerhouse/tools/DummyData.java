@@ -1,7 +1,7 @@
 package com.beerhouse.tools;
 
-import com.beerhouse.persistence.relational.entities.Beer;
-import com.beerhouse.persistence.relational.repositories.implement.BeerRepository;
+import com.beerhouse.model.Beer;
+import com.beerhouse.repository.implement.BeerRepository;
 import lombok.extern.java.Log;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -15,6 +15,8 @@ import static com.beerhouse.tools.BeerBuilder.*;
  *  Caso não esteja utilizando uma base volátil como a H2 embutida,
  *  comente a anotação '@Component' para o Spring não executar.
  *
+ * @author Marçal, Marcos
+ * @version 1.0
  * */
 @Log
 @Component

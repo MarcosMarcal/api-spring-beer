@@ -1,6 +1,6 @@
-package com.beerhouse.persistence.relational.repositories;
+package com.beerhouse.repository;
 
-import com.beerhouse.persistence.relational.entities.Beer;
+import com.beerhouse.model.Beer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

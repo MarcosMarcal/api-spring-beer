@@ -1,4 +1,4 @@
-package com.beerhouse.persistence.relational.entities;
+package com.beerhouse.model;
 
 import lombok.Data;
 

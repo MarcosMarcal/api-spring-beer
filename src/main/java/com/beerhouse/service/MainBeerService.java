@@ -1,6 +1,6 @@
-package com.beerhouse.domain;
+package com.beerhouse.service;
 
-import com.beerhouse.persistence.relational.entities.Beer;
+import com.beerhouse.model.Beer;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

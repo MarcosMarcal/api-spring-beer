@@ -1,7 +1,7 @@
-package com.beerhouse.domain.implement;
+package com.beerhouse.service.implement;
 
-import com.beerhouse.domain.MainBeerService;
-import com.beerhouse.persistence.relational.entities.Beer;
+import com.beerhouse.service.MainBeerService;
+import com.beerhouse.model.Beer;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
