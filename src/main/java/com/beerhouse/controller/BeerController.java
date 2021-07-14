@@ -1,10 +1,11 @@
 package com.beerhouse.controller;
 
-import com.beerhouse.service.implement.BeerService;
+import com.beerhouse.services.implement.BeerService;
 import com.beerhouse.model.Beer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,8 +18,9 @@ public class BeerController {
     // TODO: 13/07/2021 - Implementar métodos do controller...
 
     @GetMapping("/beers")
+    @ResponseStatus(HttpStatus.OK)
     public Page<Beer> findAllBeers(Pageable pageable) {
-        return null;
+        return beerService.findAll(pageable);
     }
 
     @PostMapping("/beers")

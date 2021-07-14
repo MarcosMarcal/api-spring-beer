@@ -1,4 +1,4 @@
-package com.beerhouse.service;
+package com.beerhouse.services;
 
 import com.beerhouse.model.Beer;
 import org.springframework.data.domain.Page;

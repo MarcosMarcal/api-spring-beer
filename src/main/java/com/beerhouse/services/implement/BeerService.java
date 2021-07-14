@@ -1,7 +1,7 @@
-package com.beerhouse.service.implement;
+package com.beerhouse.services.implement;
 
 import com.beerhouse.repository.implement.BeerRepository;
-import com.beerhouse.service.MainBeerService;
+import com.beerhouse.services.MainBeerService;
 import com.beerhouse.model.Beer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,14 +17,18 @@ public class BeerService implements MainBeerService {
     private final BeerRepository beerRepository;
 
     // TODO: 13/07/2021 - Implementar métodos do service...
-    
+
     @Override
     public Page<Beer> findAll(Pageable pageable) {
-        return beerRepository.findAllPage(pageable);
+        return beerRepository.findAll(pageable);
     }
 
     @Override
     public Beer create(Beer beer) {
+
+//        if(!beerRepository.exists(Example.of(beer)))
+//            throw new CreateBeerException;
+
         return beerRepository.save(beer);
     }
 

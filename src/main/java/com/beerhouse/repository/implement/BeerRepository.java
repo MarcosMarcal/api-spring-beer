@@ -5,11 +5,11 @@ import com.beerhouse.model.Beer;
 import com.beerhouse.repository.JpaBeerRepository;
 import com.beerhouse.repository.MainBeerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -28,11 +28,6 @@ public class BeerRepository implements MainBeerRepository {
     }
 
     @Override
-    public List<Beer> findAll() {
-        return this.beerRepo.findAll();
-    }
-
-    @Override
     public void deleteById(Long id) {
         this.beerRepo.deleteById(id);
     }
@@ -43,7 +38,13 @@ public class BeerRepository implements MainBeerRepository {
     }
 
     @Override
-    public Page<Beer> findAllPage(Pageable pageable) {
+    public Page<Beer> findAll(Pageable pageable) {
         return this.beerRepo.findAll(pageable);
     }
+
+    @Override
+    public boolean exists(Example<Beer> beer) {
+        return beerRepo.exists(beer);
+    }
+
 }

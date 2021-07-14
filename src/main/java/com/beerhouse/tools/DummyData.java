@@ -4,6 +4,7 @@ import com.beerhouse.model.Beer;
 import com.beerhouse.repository.implement.BeerRepository;
 import lombok.extern.java.Log;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class DummyData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        List<Beer> beers = beerRepo.findAll();
+        List<Beer> beers = beerRepo.findAll(PageRequest.of(0, 99)).getContent();
 
         log.info("Limpando a tabela...");
         if(!beers.isEmpty())
