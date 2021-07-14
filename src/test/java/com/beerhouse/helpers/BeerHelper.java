@@ -29,8 +29,22 @@ public class BeerHelper {
     }
 
     public Page<Beer> getAllBeers () {
-
         return new PageImpl<>(beers, Pageable.unpaged(), 6);
-
     }
+
+    public Beer getUpdatedBeer(Beer beer) {
+        beer.setName(beer.getName()+ " UPDATED");
+        beer.setIngredients(beer.getIngredients()+ " UPDATED");
+        beer.setAlcoholContent(beer.getAlcoholContent()+ " UPDATED");
+        beer.setCategory(beer.getCategory()+ " UPDATED");
+        beer.setPrice(beer.getPrice() * 2);
+        return beer;
+    }
+
+    public Beer getPartiallyUpdatedBeer(Beer beer) {
+        beer.setName(beer.getName()+ " UPDATED");
+        beer.setCategory(beer.getCategory()+ " UPDATED");
+        return beer;
+    }
+
 }

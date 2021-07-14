@@ -1,9 +1,11 @@
 package com.beerhouse.services.implement;
 
+import com.beerhouse.exceptions.BeerException;
 import com.beerhouse.repository.implement.BeerRepository;
 import com.beerhouse.services.MainBeerService;
 import com.beerhouse.model.Beer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,10 +26,10 @@ public class BeerService implements MainBeerService {
     }
 
     @Override
-    public Beer create(Beer beer) {
+    public Beer createBeer(Beer beer) throws BeerException {
 
-//        if(!beerRepository.exists(Example.of(beer)))
-//            throw new CreateBeerException;
+        if(beerRepository.exists(Example.of(beer)))
+            throw new BeerException("This beer already exists.");
 
         return beerRepository.save(beer);
     }
@@ -38,17 +40,18 @@ public class BeerService implements MainBeerService {
     }
 
     @Override
-    public Beer update(Long id) {
+    public Beer updateBeer(Beer beer) throws BeerException {
         return null;
     }
 
     @Override
-    public Beer updatePartial(Long id) {
+    public Beer updatePartiallyBeer(Beer beer) throws BeerException{
         return null;
     }
 
+    // TODO: 14/07/2021 - Método de deletar deveria ter retorno ? ...
     @Override
-    public Beer delete(Long id) {
+    public Beer deleteBeer(Long id) {
         return null;
     }
 }
