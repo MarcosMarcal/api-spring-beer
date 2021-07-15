@@ -1,6 +1,6 @@
 package com.beerhouse.tools;
 
-import com.beerhouse.model.Beer;
+import com.beerhouse.models.Beer;
 
 /**
  * Essa classe é utilizada para criação de objetos 'Beer' para facilitar testes

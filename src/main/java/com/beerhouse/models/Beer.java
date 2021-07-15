@@ -1,4 +1,4 @@
-package com.beerhouse.model;
+package com.beerhouse.models;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

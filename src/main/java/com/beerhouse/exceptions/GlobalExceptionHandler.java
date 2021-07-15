@@ -13,7 +13,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class })
     protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "Internal server error!";
+        String bodyOfResponse = "Request error!";
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
+
+    @ExceptionHandler(BeerException.class)
+    protected ResponseEntity<Object> handleBeerException(BeerException exception) {
+        return ResponseEntity.internalServerError().build();
     }
 }

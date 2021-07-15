@@ -2,25 +2,23 @@ package com.beerhouse.controller;
 
 import com.beerhouse.exceptions.BeerException;
 import com.beerhouse.services.implement.BeerService;
-import com.beerhouse.model.Beer;
+import com.beerhouse.models.Beer;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
-@Log4j2
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/v1")
 public class BeerController {
 
     private final BeerService beerService;
-
-    // TODO: 13/07/2021 - Implementar métodos do controller...
 
     @GetMapping("/beers")
     @ResponseStatus(HttpStatus.OK)
@@ -31,28 +29,32 @@ public class BeerController {
     @PostMapping("/beers")
     @ResponseStatus(HttpStatus.CREATED)
     public Beer createBeer(@RequestBody Beer beer) throws BeerException {
-
-            return beerService.createBeer(beer);
+        return beerService.createBeer(beer);
     }
 
     @GetMapping("/beers/{id}")
-    public Beer findBeerById(@PathVariable("id") Long id) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public Beer findBeerById(@PathVariable("id") Long id) throws BeerException {
+        return beerService.findById(id);
     }
 
     @PutMapping("/beers/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Beer updateBeer(@RequestBody Beer beer, @PathVariable("id") Long id) throws BeerException {
         return beerService.updateBeer(beer, id);
     }
 
     @PatchMapping("/beers/{id}")
-    public Beer changeBeer(@PathVariable("id") Long id) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public Beer updatePartiallyBeer(@RequestBody Map<String, Object> body, @PathVariable("id") Long id) throws BeerException {
+        return beerService.updatePartiallyBeer(body, id);
     }
 
     @DeleteMapping("/beers/{id}")
-    public Beer deleteBeer(@PathVariable("id") Long id) {
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<?> deleteBeer(@PathVariable("id") Long id) throws BeerException {
+                beerService.deleteBeer(id);
+        return ResponseEntity.of(Optional.of("Beer deleted!"));
     }
 
 }

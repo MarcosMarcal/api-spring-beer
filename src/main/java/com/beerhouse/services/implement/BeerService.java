@@ -3,7 +3,7 @@ package com.beerhouse.services.implement;
 import com.beerhouse.exceptions.BeerException;
 import com.beerhouse.repository.implement.BeerRepository;
 import com.beerhouse.services.MainBeerService;
-import com.beerhouse.model.Beer;
+import com.beerhouse.models.Beer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -36,8 +36,14 @@ public class BeerService implements MainBeerService {
     }
 
     @Override
-    public Optional<Beer> findById(Long id) {
-        return beerRepository.findById(id);
+    public Beer findById(Long id) throws BeerException {
+
+        Optional<Beer> beer = beerRepository.findById(id);
+
+        if(!beer.isPresent())
+            throw new BeerException("The informed beer does not exist.");
+
+        return beer.get();
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.beerhouse.repository;
 
-import com.beerhouse.model.Beer;
+import com.beerhouse.models.Beer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

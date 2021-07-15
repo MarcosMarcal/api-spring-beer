@@ -1,6 +1,6 @@
 package com.beerhouse.helpers;
 
-import com.beerhouse.model.Beer;
+import com.beerhouse.models.Beer;
 import lombok.Getter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,28 +33,23 @@ public class BeerHelper {
         return new PageImpl<>(beers, Pageable.unpaged(), 6);
     }
 
-    public Beer getUpdatedBeer(Beer beer) {
-        beer.setName(beer.getName()+ " UPDATED");
-        beer.setIngredients(beer.getIngredients()+ " UPDATED");
-        beer.setAlcoholContent(beer.getAlcoholContent()+ " UPDATED");
-        beer.setCategory(beer.getCategory()+ " UPDATED");
-        beer.setPrice(beer.getPrice() * 2);
+    public Beer getUpdatedBeer() {
+        var beer = aBeer().named("BEER 6 UPDATED").costing(44.0).now();
+        beer.setIngredients("BLUE INGREDIENTS UPDATED");
+        beer.setAlcoholContent("10 ALCOHOL UPDATED");
+        beer.setCategory("BLUE OCEAN UPDATED");
         return beer;
     }
 
-    public Beer getPartiallyUpdatedBeer(Beer beer) {
-        beer.setName(beer.getName()+ " UPDATED");
-        beer.setCategory(beer.getCategory()+ " UPDATED");
+    public Beer getPartiallyUpdatedBeer() {
+        var beer = aBlueBeer().named("BEER 5 UPDATED").costing(17.0).now();
+        beer.setCategory("BLUE OCEAN UPDATED");
         return beer;
     }
 
     public Map<String, Object> getPartiallyUpdatedBeerBody() {
 
         return Map.of("name", "BEER 5 UPDATED", "category", "BLUE OCEAN UPDATED");
-    }
-
-    public Beer getNewBeer(){
-        return aRedBeer().named("NEW BEER").costing(69.0).now();
     }
 
 }

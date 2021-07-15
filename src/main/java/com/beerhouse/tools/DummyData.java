@@ -1,6 +1,6 @@
 package com.beerhouse.tools;
 
-import com.beerhouse.model.Beer;
+import com.beerhouse.models.Beer;
 import com.beerhouse.repository.implement.BeerRepository;
 import lombok.extern.java.Log;
 import org.springframework.boot.CommandLineRunner;

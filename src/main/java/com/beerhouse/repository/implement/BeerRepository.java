@@ -1,7 +1,7 @@
 package com.beerhouse.repository.implement;
 
 
-import com.beerhouse.model.Beer;
+import com.beerhouse.models.Beer;
 import com.beerhouse.repository.JpaBeerRepository;
 import com.beerhouse.repository.MainBeerRepository;
 import org.springframework.beans.factory.annotation.Autowired;

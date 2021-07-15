@@ -2,7 +2,7 @@ package com.beerhouse.services;
 
 import com.beerhouse.exceptions.BeerException;
 import com.beerhouse.helpers.BeerHelper;
-import com.beerhouse.model.Beer;
+import com.beerhouse.models.Beer;
 import com.beerhouse.repository.implement.BeerRepository;
 import com.beerhouse.services.implement.BeerService;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +15,6 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -82,14 +81,14 @@ public class BeerServiceTest {
 
     @Test
     @DisplayName("Should find a beer by ID!")
-    public void findByIdTest() {
+    public void findByIdTest() throws BeerException {
 
         when(beerRepository.findById(3L)).thenReturn(Optional.of(helper.getBeers().get(2)));
 
         var beerResponse =  beerService.findById(3L);
 
-        assertTrue(beerResponse.isPresent());
-        assertEquals("BEER 3", beerResponse.get().getName());
+        assertNotNull(beerResponse);
+        assertEquals("BEER 3", beerResponse.getName());
 
     }
 
@@ -97,43 +96,37 @@ public class BeerServiceTest {
     @DisplayName("Should update a beer by ID!")
     public void updateBeerByIdTest() throws BeerException {
 
-        var oldBeer = helper.getBeers().get(5);
-        var newBeer = helper.getUpdatedBeer(oldBeer);
+        var updatedBeer = helper.getUpdatedBeer();
 
-        var beerResponse = beerService.updateBeer(newBeer, 4L);
+        when(beerRepository.save(helper.getBeers().get(5))).thenReturn(helper.getUpdatedBeer());
+        when(beerRepository.findById(any(Long.class))).thenReturn(Optional.of(helper.getBeers().get(5)));
+
+        var beerResponse = beerService.updateBeer(helper.getUpdatedBeer(), 6L);
 
         assertNotNull(beerResponse);
-        assertEquals("BEER 6", oldBeer.getName());
-        assertEquals("BLUE INGREDIENTS", oldBeer.getIngredients());
-        assertEquals("10 ALCOHOL", oldBeer.getAlcoholContent());
-        assertEquals(22.0, oldBeer.getPrice());
-        assertEquals("BLUE OCEAN", oldBeer.getCategory());
-
-        assertEquals("BEER 6 UPDATED", beerResponse.getName());
-        assertEquals("BLUE INGREDIENTS UPDATED", beerResponse.getIngredients());
-        assertEquals("10 ALCOHOL UPDATED", beerResponse.getAlcoholContent());
-        assertEquals(44.0, beerResponse.getPrice());
-        assertEquals("BLUE OCEAN UPDATED", beerResponse.getCategory());
+        assertEquals(updatedBeer.getName(), beerResponse.getName());
+        assertEquals(updatedBeer.getIngredients(), beerResponse.getIngredients());
+        assertEquals(updatedBeer.getAlcoholContent(), beerResponse.getAlcoholContent());
+        assertEquals(updatedBeer.getPrice(), beerResponse.getPrice());
+        assertEquals(updatedBeer.getCategory(), beerResponse.getCategory());
 
     }
 
     @Test
     @DisplayName("Should partially update a beer!")
-    public void updateBeerPartiallyTest() throws BeerException {
+    public void partiallyUpdateBeerTest() throws BeerException {
 
-        when(beerRepository.save(helper.getBeers().get(4))).thenReturn(helper.getPartiallyUpdatedBeer(helper.getBeers().get(4)));
-
-        var oldBeer = helper.getBeers().get(4);
+        var updatedBeer = helper.getBeers().get(4);
         var partiallyNewBeer = helper.getPartiallyUpdatedBeerBody();
+        when(beerRepository.save(helper.getBeers().get(4))).thenReturn(helper.getPartiallyUpdatedBeer());
+        when(beerRepository.findById(any(Long.class))).thenReturn(Optional.of(helper.getBeers().get(4)));
+
 
         var beerResponse = beerService.updatePartiallyBeer(partiallyNewBeer, 5L);
 
         assertNotNull(beerResponse);
-        assertEquals("BEER 5", oldBeer.getName());
-        assertEquals("BLUE OCEAN", oldBeer.getCategory());
-
-        assertEquals("BEER 5 UPDATED", beerResponse.getName());
-        assertEquals("BLUE OCEAN UPDATED", beerResponse.getCategory());
+        assertEquals(updatedBeer.getName(), beerResponse.getName());
+        assertEquals(updatedBeer.getCategory(), beerResponse.getCategory());
 
     }
 
@@ -145,7 +138,6 @@ public class BeerServiceTest {
 
         beerService.deleteBeer(4L);
 
-        // TODO: 14/07/2021 - Verificar as assertivas desse teste...
         verify(beerRepository, times(1)).deleteById(4L);
     }
 

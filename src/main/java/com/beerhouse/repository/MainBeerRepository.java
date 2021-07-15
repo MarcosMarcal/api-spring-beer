@@ -1,6 +1,6 @@
 package com.beerhouse.repository;
 
-import com.beerhouse.model.Beer;
+import com.beerhouse.models.Beer;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
