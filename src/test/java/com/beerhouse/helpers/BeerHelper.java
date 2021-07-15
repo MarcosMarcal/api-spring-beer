@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.beerhouse.tools.BeerBuilder.*;
 import static com.beerhouse.tools.BeerBuilder.aBlueBeer;
@@ -45,6 +46,15 @@ public class BeerHelper {
         beer.setName(beer.getName()+ " UPDATED");
         beer.setCategory(beer.getCategory()+ " UPDATED");
         return beer;
+    }
+
+    public Map<String, Object> getPartiallyUpdatedBeerBody() {
+
+        return Map.of("name", "BEER 5 UPDATED", "category", "BLUE OCEAN UPDATED");
+    }
+
+    public Beer getNewBeer(){
+        return aRedBeer().named("NEW BEER").costing(69.0).now();
     }
 
 }

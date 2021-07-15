@@ -10,15 +10,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class BeerService implements MainBeerService {
 
     private final BeerRepository beerRepository;
-
-    // TODO: 13/07/2021 - Implementar métodos do service...
 
     @Override
     public Page<Beer> findAll(Pageable pageable) {
@@ -40,18 +41,48 @@ public class BeerService implements MainBeerService {
     }
 
     @Override
-    public Beer updateBeer(Beer beer) throws BeerException {
-        return null;
+    public Beer updateBeer(Beer beer, Long id) throws BeerException {
+
+        Optional<Beer> updatedBeer = beerRepository.findById(id);
+
+        if(!updatedBeer.isPresent())
+            throw new BeerException("The informed beer does not exist to update.");
+
+        updatedBeer.get().setName(beer.getName());
+        updatedBeer.get().setIngredients(beer.getIngredients());
+        updatedBeer.get().setAlcoholContent(beer.getAlcoholContent());
+        updatedBeer.get().setPrice(beer.getPrice());
+        updatedBeer.get().setCategory(beer.getCategory());
+
+        return beerRepository.save(updatedBeer.get());
     }
 
     @Override
-    public Beer updatePartiallyBeer(Beer beer) throws BeerException{
-        return null;
+    public Beer updatePartiallyBeer(Map<String, Object> body, Long id) throws BeerException {
+
+        Optional<Beer> beer = beerRepository.findById(id);
+
+        if(!beer.isPresent())
+            throw new BeerException("The informed beer does not exist to update.");
+
+        body.forEach((key, value) -> { switch (key) {
+            case "name" : beer.get().setName(value.toString()); break;
+            case "ingredients" : beer.get().setIngredients(value.toString()); break;
+            case "alcoholContent" : beer.get().setAlcoholContent(value.toString()); break;
+            case "price" : beer.get().setPrice(Double.parseDouble(value.toString())); break;
+            case "category" : beer.get().setCategory(value.toString()); break;
+            default: break;
+        } } );
+
+        return beerRepository.save(beer.get());
     }
 
-    // TODO: 14/07/2021 - Método de deletar deveria ter retorno ? ...
     @Override
-    public Beer deleteBeer(Long id) {
-        return null;
+    public void deleteBeer(Long id) throws BeerException {
+
+        if(!beerRepository.findById(id).isPresent())
+            throw new BeerException("The informed beer does not exist to delete.");
+
+        beerRepository.deleteById(id);
     }
 }
