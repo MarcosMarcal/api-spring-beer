@@ -123,11 +123,11 @@ public class BeerServiceImpl implements BeerService {
             return true;
         }
         try {
-            double d = Double.parseDouble(priceStr);
+            var d = Double.parseDouble(priceStr);
         } catch (NumberFormatException nfe) {
             return true;
         }
-        double d = Double.parseDouble(priceStr);
+        var d = Double.parseDouble(priceStr);
         return d < 0.0;
     }
 }

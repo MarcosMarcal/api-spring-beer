@@ -1,20 +1,17 @@
 package com.beerhouse.controller;
 
+import com.beerhouse.controller.request.BeerRequest;
 import com.beerhouse.controller.response.BeerListResponse;
 import com.beerhouse.controller.response.BeerResponse;
 import com.beerhouse.exceptions.BadRequestException;
 import com.beerhouse.exceptions.BeerException;
 import com.beerhouse.services.BeerService;
-import com.beerhouse.services.implement.BeerServiceImpl;
-import com.beerhouse.models.Beer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,8 +28,8 @@ public class BeerController {
 
     @PostMapping("/beers")
     @ResponseStatus(HttpStatus.CREATED)
-    public BeerResponse createBeer(@RequestBody Beer beer) throws BeerException {
-        return new BeerResponse(beerService.createBeer(beer), HttpStatus.CREATED);
+    public BeerResponse createBeer(@RequestBody BeerRequest beer) throws BeerException {
+        return new BeerResponse(beerService.createBeer(beer.asBeer()), HttpStatus.CREATED);
     }
 
     @GetMapping("/beers/{id}")
@@ -43,8 +40,8 @@ public class BeerController {
 
     @PutMapping("/beers/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public BeerResponse updateBeer(@RequestBody Beer beer, @PathVariable("id") Long id) throws BeerException, BadRequestException {
-        return new BeerResponse(beerService.updateBeer(beer, id), HttpStatus.OK);
+    public BeerResponse updateBeer(@RequestBody BeerRequest beer, @PathVariable("id") Long id) throws BeerException, BadRequestException {
+        return new BeerResponse(beerService.updateBeer(beer.asBeer(), id), HttpStatus.OK);
     }
 
     @PatchMapping("/beers/{id}")
@@ -55,9 +52,8 @@ public class BeerController {
 
     @DeleteMapping("/beers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<?> deleteBeer(@PathVariable("id") Long id) throws BeerException {
+    public void deleteBeer(@PathVariable("id") Long id) throws BeerException {
                 beerService.deleteBeer(id);
-        return ResponseEntity.of(Optional.of("Beer deleted!"));
     }
 
 }
