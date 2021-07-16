@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "f32578d1-48b0-4586-a6d7-7339251cfd1d",
+		"name": "API SPRING BEER - Marçal, Marcos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all beers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/v1/beers",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"v1",
+						"beers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all beers - Paginated",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/v1/beers?page=2&size=2",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"v1",
+						"beers"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "size",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find a beer by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/v1/beers/1",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"v1",
+						"beers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new Beer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"BEER 1\",\r\n    \"ingredients\": \"ANY INGREDIENTS\",\r\n    \"alcoholContent\": \"TO MUCH ALCOHOL\",\r\n    \"price\": 9.0,\r\n    \"category\": \"NICE BEER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/v1/beers",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"v1",
+						"beers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a beer",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"BEER 2 UPDATED\",\r\n    \"ingredients\": \"ANY INGREDIENTS\",\r\n    \"alcoholContent\": \"TO MUCH ALCOHOL\",\r\n    \"price\": -17.0,\r\n    \"category\": \"new categor\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/v1/beers/2",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"v1",
+						"beers",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Partially update a beer",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"BEER 2 UPDATED\",\r\n    \"ingredients\": \"ANY INGREDIENTS\",\r\n    \"alcoholContent\": \"TO MUCH ALCOHOL\",\r\n    \"price\": -1.0,\r\n    \"category\": \"new category\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/v1/beers/2",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"v1",
+						"beers",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a beer",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/v1/beers/6",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"v1",
+						"beers",
+						"6"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
