@@ -24,7 +24,15 @@ public class Beer {
     private String name;
     private String ingredients;
     private String alcoholContent;
-    private double price;
+    private Double price;
     private String category;
+
+    public boolean hasNull() {
+        if(this.name == null || this.ingredients == null || this.alcoholContent == null ||
+                this.category == null || this.price == null)
+            return true;
+
+        return false;
+    }
 
 }

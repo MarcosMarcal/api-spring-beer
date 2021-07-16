@@ -1,10 +1,13 @@
 package com.beerhouse.controller;
 
+import com.beerhouse.controller.response.BeerListResponse;
+import com.beerhouse.controller.response.BeerResponse;
+import com.beerhouse.exceptions.BadRequestException;
 import com.beerhouse.exceptions.BeerException;
-import com.beerhouse.services.implement.BeerService;
+import com.beerhouse.services.BeerService;
+import com.beerhouse.services.implement.BeerServiceImpl;
 import com.beerhouse.models.Beer;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,32 +25,32 @@ public class BeerController {
 
     @GetMapping("/beers")
     @ResponseStatus(HttpStatus.OK)
-    public Page<Beer> findAllBeers(Pageable pageable) {
-        return beerService.findAll(pageable);
+    public BeerListResponse findAllBeers(Pageable pageable) {
+        return new BeerListResponse(beerService.findAll(pageable).getContent(), HttpStatus.OK);
     }
 
     @PostMapping("/beers")
     @ResponseStatus(HttpStatus.CREATED)
-    public Beer createBeer(@RequestBody Beer beer) throws BeerException {
-        return beerService.createBeer(beer);
+    public BeerResponse createBeer(@RequestBody Beer beer) throws BeerException {
+        return new BeerResponse(beerService.createBeer(beer), HttpStatus.CREATED);
     }
 
     @GetMapping("/beers/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Beer findBeerById(@PathVariable("id") Long id) throws BeerException {
-        return beerService.findById(id);
+    public BeerResponse findBeerById(@PathVariable("id") Long id) throws BeerException {
+        return new BeerResponse(beerService.findById(id), HttpStatus.OK);
     }
 
     @PutMapping("/beers/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Beer updateBeer(@RequestBody Beer beer, @PathVariable("id") Long id) throws BeerException {
-        return beerService.updateBeer(beer, id);
+    public BeerResponse updateBeer(@RequestBody Beer beer, @PathVariable("id") Long id) throws BeerException, BadRequestException {
+        return new BeerResponse(beerService.updateBeer(beer, id), HttpStatus.OK);
     }
 
     @PatchMapping("/beers/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Beer updatePartiallyBeer(@RequestBody Map<String, Object> body, @PathVariable("id") Long id) throws BeerException {
-        return beerService.updatePartiallyBeer(body, id);
+    public BeerResponse updatePartiallyBeer(@RequestBody Map<String, Object> body, @PathVariable("id") Long id) throws BeerException, BadRequestException {
+        return new BeerResponse(beerService.updatePartiallyBeer(body, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/beers/{id}")

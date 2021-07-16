@@ -1,10 +1,11 @@
 package com.beerhouse.services;
 
+import com.beerhouse.exceptions.BadRequestException;
 import com.beerhouse.exceptions.BeerException;
 import com.beerhouse.helpers.BeerHelper;
 import com.beerhouse.models.Beer;
 import com.beerhouse.repository.implement.BeerRepository;
-import com.beerhouse.services.implement.BeerService;
+import com.beerhouse.services.implement.BeerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @DisplayName("BeerService Tests")
-public class BeerServiceTest {
+public class BeerServiceImplTest {
 
     @Mock
     private BeerRepository beerRepository;
@@ -32,7 +33,7 @@ public class BeerServiceTest {
     private BeerHelper helper;
 
     @InjectMocks
-    private BeerService beerService;
+    private BeerServiceImpl beerService;
 
     @BeforeEach
     public void before(){
@@ -94,7 +95,7 @@ public class BeerServiceTest {
 
     @Test
     @DisplayName("Should update a beer by ID!")
-    public void updateBeerByIdTest() throws BeerException {
+    public void updateBeerByIdTest() throws BeerException, BadRequestException {
 
         var updatedBeer = helper.getUpdatedBeer();
 
@@ -114,7 +115,7 @@ public class BeerServiceTest {
 
     @Test
     @DisplayName("Should partially update a beer!")
-    public void partiallyUpdateBeerTest() throws BeerException {
+    public void partiallyUpdateBeerTest() throws BeerException, BadRequestException {
 
         var updatedBeer = helper.getBeers().get(4);
         var partiallyNewBeer = helper.getPartiallyUpdatedBeerBody();
